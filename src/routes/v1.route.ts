@@ -6,6 +6,7 @@ import blogRouter from './blog.route';
 import productRouter from './product.route';
 import personRouter from './person.route';
 import testimonialRouter from './testimonial.route';
+import leadRouter from './lead.route';
 
 const v1Router = Router();
 
@@ -16,5 +17,6 @@ v1Router.use('/product', productRouter);
 v1Router.use('/blog', blogRouter);
 v1Router.use('/team', personRouter);
 v1Router.use('/testimonial', testimonialRouter);
+v1Router.use('/lead', leadRouter);
 
 export default v1Router;
