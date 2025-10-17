@@ -22,6 +22,7 @@ class LeadService {
     async sendOTP(phone: string) {
         const verification = await twilioClient
         .verify
+        .v2
         .services(twilioServiceSid)
         .verifications
         .create({ to: phone, channel: "sms" });
@@ -32,6 +33,7 @@ class LeadService {
     async verifyOTP(phone: string, otp: string) {
         const verificationCheck = await twilioClient
         .verify
+        .v2
         .services(twilioServiceSid)
         .verificationChecks
         .create({ to: phone, code: otp });
