@@ -12,4 +12,7 @@ export class LeadRepository {
     async findByPhone(phone: string) {
         return leadModel.findOne({ phone }).lean();
     }
+    async updateSessionId(phone: string, sessionId: string | null) {
+        return leadModel.updateOne({ phone }, { sessionId });
+    }
 }

@@ -13,6 +13,10 @@ const leadSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    sessionId: {
+        type: String,
+        default: null,
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -25,6 +29,7 @@ export interface ILead extends mongoose.Document {
     name: string;
     phone: string;
     otpVerified?: boolean;
+    sessionId?: string | null;
     createdAt?: Date;
     updatedAt?: Date;
 }

@@ -13,7 +13,7 @@ export const createLead = async(req: Request, res: Response, next: NextFunction)
 
 export const verifyLeadOTP = async(req: Request, res: Response, next: NextFunction) => {
     const { phone, otp } = req.body;
-    const response = await leadService.verifyOTP(phone, otp);
+    const verifyResponse = await leadService.verifyOTP(phone, otp);
 
-    next(response);
+    next(verifyResponse);
 }
