@@ -43,4 +43,14 @@ const uploadPersonImage = multer({
   }
 }).single('image');
 
-export { uploadPersonImage };
+const uploadIndustryImage = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024 
+  }
+}).fields([
+  { name: "image", maxCount: 1 }
+]);
+
+export { uploadPersonImage , uploadIndustryImage};
