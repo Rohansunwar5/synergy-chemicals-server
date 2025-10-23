@@ -9,15 +9,15 @@ import {
   getAllIndustries,
   searchIndustries
 } from "../controllers/industry.controller";
-import { uploadProductImages } from "../middlewares/multer.middleware";
+import { uploadIndustryImage, uploadProductImages } from "../middlewares/multer.middleware";
 
 const industryRouter = Router();
 
 industryRouter.get('/', asyncHandler(getAllIndustries));
 industryRouter.get('/search', asyncHandler(searchIndustries));
+industryRouter.post('/create', isAdminLoggedIn, uploadIndustryImage, asyncHandler(createAnIndustry));
 industryRouter.get('/:industryId', asyncHandler(getAnIndustry));
-industryRouter.post('/create', isAdminLoggedIn, uploadProductImages, asyncHandler(createAnIndustry));
-industryRouter.put('/edit/:industryId', isAdminLoggedIn, uploadProductImages, asyncHandler(editAnIndustry));
+industryRouter.put('/edit/:industryId', isAdminLoggedIn, uploadIndustryImage, asyncHandler(editAnIndustry));
 industryRouter.delete('/delete/:industryId', isAdminLoggedIn, asyncHandler(deleteIndustry));
 
 export default industryRouter;
