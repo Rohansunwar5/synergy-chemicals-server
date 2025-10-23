@@ -17,3 +17,9 @@ export const verifyLeadOTP = async(req: Request, res: Response, next: NextFuncti
 
     next(verifyResponse);
 }
+
+export const getAllLeads = async(req: Request, res: Response, next: NextFunction) => {
+    const leads = await leadService.getAllLeads();
+
+    next(leads);
+}

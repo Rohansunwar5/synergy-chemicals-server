@@ -15,4 +15,8 @@ export class LeadRepository {
     async updateSessionId(phone: string, sessionId: string | null) {
         return leadModel.updateOne({ phone }, { sessionId });
     }
+
+    async getAllLeads() {
+        return leadModel.find();
+    }
 }

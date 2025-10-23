@@ -137,6 +137,10 @@ class LeadService {
         }
     }
 
+    async getAllLeads() {
+        return this._leadRepository.getAllLeads();
+    }
+
     async verifyOTP(phone: string, otp: string): Promise<{ success: boolean; message: string }> {
         try {
             const lead = await this._leadRepository.findByPhone(phone);
