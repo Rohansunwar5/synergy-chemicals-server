@@ -17,11 +17,11 @@ interface CreateBaseProductParamsFromController {
 interface CreateBaseProductParamsForRepo {
   productCode: string;
   name: string;
-  mainImage: { url: string; publicId?: string };
+  mainImage?: { url: string; publicId?: string };
   subheading?: string;
   description?: string;
-  applications: Array<{ point: string; description?: string }>;
-  bulletPoints: Array<{ point: string; description?: string }>;
+  applications?: Array<{ point: string; description?: string }>;
+  bulletPoints?: Array<{ point: string; description?: string }>;
 }
 
 interface EditBaseProductParams {
@@ -61,22 +61,21 @@ class BaseProductService {
       bulletPoints,
     } = params;
 
-    if (!mainImage) {
-      throw new BadRequestError("Main image file is required");
+    let mainImageData;
+    if (mainImage) {
+      // Only upload if provided
+      const uploadResult = await uploadToCloudinary(mainImage);
+      mainImageData = { url: uploadResult, publicId: undefined };
     }
-
-    // Upload main image and get url/publicId
-    const uploadResult = await uploadToCloudinary(mainImage);
-    const mainImageData = { url: uploadResult, publicId: undefined }; // adapt if publicId available
 
     const creationParams: CreateBaseProductParamsForRepo = {
       productCode,
       name,
-      mainImage: mainImageData,
-      subheading,
-      description,
-      applications,
-      bulletPoints,
+      ...(mainImageData ? { mainImage: mainImageData } : {}),
+      ...(subheading ? { subheading } : {}),
+      ...(description ? { description } : {}),
+      ...(applications ? { applications } : {}),
+      ...(bulletPoints ? { bulletPoints } : {}),
     };
 
     const creation = await this._baseProductRepository.createBaseProduct(creationParams);
@@ -94,14 +93,14 @@ class BaseProductService {
     let mainImageData = existing.mainImage;
 
     if (mainImage) {
-      // Upload new image and overwrite mainImageData
+      // Upload new image if provided
       const uploadResult = await uploadToCloudinary(mainImage);
       mainImageData = { url: uploadResult, publicId: undefined };
     }
 
     const updatedData = {
       ...updateData,
-      mainImage: mainImageData,
+      ...(mainImage ? { mainImage: mainImageData } : {}),
     };
 
     const updated = await this._baseProductRepository.updateBaseProduct(productId, updatedData);
@@ -109,7 +108,6 @@ class BaseProductService {
 
     return updated;
   }
-
 
   async deleteBaseProduct(productId: string) {
     if (!productId) throw new BadRequestError("Product ID not provided");
