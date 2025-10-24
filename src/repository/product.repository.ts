@@ -3,11 +3,11 @@ import baseProductModel from "../models/baseProduct.model";
 export interface ICreateBaseProductParams {
   productCode: string;
   name: string;
-  mainImage: { url: string; publicId?: string };
+  mainImage?: { url: string; publicId?: string };
   subheading?: string;
   description?: string;
-  applications: Array<{ point: string; description?: string }>;
-  bulletPoints: Array<{ point: string; description?: string }>;
+  applications?: Array<{ point: string; description?: string }>;
+  bulletPoints?: Array<{ point: string; description?: string }>;
 }
 
 export class ProductRepository {

@@ -59,7 +59,7 @@ const baseProductSchema = new mongoose.Schema(
     },
     mainImage: { 
         type: imageSchema, 
-        required: true 
+        required: false
     },
     subheading: { 
         type: String, 
@@ -85,7 +85,7 @@ export interface IBaseProduct extends mongoose.Document {
   _id: string;
   productCode: string;
   name: string;
-  mainImage: { url: string; publicId?: string };
+  mainImage?: { url: string; publicId?: string };
   subheading?: string;
   description?: string;
   applications: Array<{ point: string; description?: string }>;
