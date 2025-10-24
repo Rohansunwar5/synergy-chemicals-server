@@ -8,6 +8,7 @@ import personRouter from './person.route';
 import testimonialRouter from './testimonial.route';
 import leadRouter from './lead.route';
 import industryRouter from './industry.route';
+import contactRouter from './contact.route';
 
 const v1Router = Router();
 
@@ -20,5 +21,6 @@ v1Router.use('/team', personRouter);
 v1Router.use('/testimonial', testimonialRouter);
 v1Router.use('/lead', leadRouter);
 v1Router.use('/industry', industryRouter);
+v1Router.use('/contact', contactRouter);
 
 export default v1Router;
